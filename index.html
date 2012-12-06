@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Slideshow_1</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="author" content="The Chopping Block, Inc." />
+	<meta name="geo.country" content="US" />
+	<meta name="dc.language" content="en" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	
+	<link rel="stylesheet" href="../../../Classfiles_4/Slideshow_1/styles.css" type="text/css" media="screen" charset="utf-8" />
+	
+	<style type="text/css" media="screen">		
+		/*local styles if any (quick tests and local only overrides)*/
+		
+		
+		.nav_button{color:
+		#F00;
+		}
+		
+		
+	</style>
+</head>
+<body>
+
+	<div class="wrap" >
+		
+		Project: Slideshow_1
+
+		<div class="slideshow">
+		
+			<img src="images/3.jpg"></img>   	
+			<img src="images/2.jpg"></img>
+			<img src="images/1.jpg"></img>   
+		</div>
+    
+        
+	</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+
+		var images = [];
+		
+		var slideshow_images = $(".slideshow img");
+		
+		slideshow_images.each(function(){
+			//Taking the url and adding it to the end of the array
+			images.push($(this).attr("src"));	
+			$(this).remove();		
+		})
+		
+		
+		var image = $("<img id='image'></img>").attr("src", images[0]).appendTo($(".slideshow"));		
+		
+		var currentImage = 0;
+
+		function nextClicked(e){
+			image.slideDown("slow", function(){
+				if(currentImage + 1 < images.length){
+					image.attr("src", images[currentImage + 1]);
+
+					currentImage = currentImage + 1;
+				}else{
+
+					image.attr("src", images[0]);			
+					currentImage = 0;
+				}
+
+				image.slideDown("slow");	
+			});			
+		}
+		
+		function previousClicked(e){
+			image.slideDown("slow",function(){
+				if(currentImage - 1 >= 0){
+
+					image.attr("src", images[currentImage - 1]);
+
+					currentImage = currentImage - 1;
+				}else{
+
+					image.attr("src", images[images.length-1]);			
+					currentImage = images.length -1;
+				}
+
+				image.slideDown("slow");					
+				
+			});			
+
+		}		
+		
+		var wrap = $(".wrap");
+
+		var previous_button = $("<span class='nav_button'>Previous Button</span>").insertBefore($("#image")).click(previousClicked);
+		var next_button = $("<span class='nav_button'>Next Button</span>").appendTo(wrap).click(nextClicked);		
+
+
+</script>
+	
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
